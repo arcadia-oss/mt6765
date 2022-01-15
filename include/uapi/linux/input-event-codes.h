@@ -337,6 +337,27 @@
 
 #define KEY_MICMUTE		248	/* Mute / unmute the microphone */
 
+
+/* add Armin FingerPrint long touch */
+#define KEY_AIASSIST		252
+
+//xjl 2014-01-16 for TOUCHPANEL_GESTURE
+#define KEY_TPGESTURE_UP		452
+#define KEY_TPGESTURE_DOWN		453
+#define KEY_TPGESTURE_LEFT		454
+#define KEY_TPGESTURE_RIGHT		455
+#define KEY_TPGESTURE_DOUBLE	456
+#define KEY_TPGESTURE_C			457
+#define KEY_TPGESTURE_E			458
+#define KEY_TPGESTURE_M			459
+#define KEY_TPGESTURE_O			460
+#define KEY_TPGESTURE_S			461
+#define KEY_TPGESTURE_V			462
+#define KEY_TPGESTURE_W			485
+#define KEY_TPGESTURE_Z			486
+#define KEY_TPGESTURE_ARROWUP	487
+#define KEY_TPGESTURE_ARROWRIGHT	488
+
 /* Code 255 is reserved for special needs of AT keyboard driver */
 
 #define BTN_MISC		0x100

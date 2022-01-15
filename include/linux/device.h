@@ -344,7 +344,8 @@ struct driver_attribute {
 	ssize_t (*store)(struct device_driver *driver, const char *buf,
 			 size_t count);
 };
-
+#define DRIVER_ATTR(_name, _mode, _show, _store) \
+	struct driver_attribute driver_attr_##_name = __ATTR(_name, _mode, _show, _store)
 #define DRIVER_ATTR_RW(_name) \
 	struct driver_attribute driver_attr_##_name = __ATTR_RW(_name)
 #define DRIVER_ATTR_RO(_name) \

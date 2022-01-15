@@ -1,0 +1,401 @@
+
+/* Begin:xen added by BPI BUS control by APP 20171014 mt6765 mt6762 */
+&pio {
+	bpibus_ctrl_bpibus0_pin_high: bpibus0_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO76__FUNC_GPIO76>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus0_pin_low: bpibus0_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO76__FUNC_GPIO76>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus1_pin_high: bpibus1_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO75__FUNC_GPIO75>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus1_pin_low: bpibus1_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO75__FUNC_GPIO75>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus2_pin_high: bpibus2_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus2_pin_low: bpibus2_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus3_pin_high: bpibus3_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO73__FUNC_GPIO73>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus3_pin_low: bpibus3_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO73__FUNC_GPIO73>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus4_pin_high: bpibus4_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO72__FUNC_GPIO72>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus4_pin_low: bpibus4_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO72__FUNC_GPIO72>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus5_pin_high: bpibus5_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO71__FUNC_GPIO71>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus5_pin_low: bpibus5_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO71__FUNC_GPIO71>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus6_pin_high: bpibus6_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO70__FUNC_GPIO70>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus6_pin_low: bpibus6_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO70__FUNC_GPIO70>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus7_pin_high: bpibus7_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO69__FUNC_GPIO69>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus7_pin_low: bpibus7_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO69__FUNC_GPIO69>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus8_pin_high: bpibus8_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO55__FUNC_GPIO55>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus8_pin_low: bpibus8_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO55__FUNC_GPIO55>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus9_pin_high: bpibus9_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO56__FUNC_GPIO56>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus9_pin_low: bpibus9_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO56__FUNC_GPIO56>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus10_pin_high: bpibus10_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO57__FUNC_GPIO57>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus10_pin_low: bpibus10_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO57__FUNC_GPIO57>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus11_pin_high: bpibus11_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO78__FUNC_GPIO78>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus11_pin_low: bpibus11_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO78__FUNC_GPIO78>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus12_pin_high: bpibus12_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO54__FUNC_GPIO54>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus12_pin_low: bpibus12_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO54__FUNC_GPIO54>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus13_pin_high: bpibus13_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO53__FUNC_GPIO53>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus13_pin_low: bpibus13_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO53__FUNC_GPIO53>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus14_pin_high: bpibus14_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO77__FUNC_GPIO77>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus14_pin_low: bpibus14_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO77__FUNC_GPIO77>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus15_pin_high: bpibus15_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO52__FUNC_GPIO52>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus15_pin_low: bpibus15_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO52__FUNC_GPIO52>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus16_pin_high: bpibus16_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO65__FUNC_GPIO65>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus16_pin_low: bpibus16_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO65__FUNC_GPIO65>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	bpibus_ctrl_bpibus17_pin_high: bpibus17_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO66__FUNC_GPIO66>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus17_pin_low: bpibus17_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO66__FUNC_GPIO66>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+/*
+	bpibus_ctrl_bpibus18_pin_high: bpibus18_pin_high {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO10__FUNC_GPIO10>;
+			slew-rate = <1>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	bpibus_ctrl_bpibus18_pin_low: bpibus18_pin_low {
+	    pins_cmd_dat {
+			pinmux = <PINMUX_GPIO10__FUNC_GPIO10>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+		};
+	};
+*/
+	bpibus_ctrl_pin_default: bpibus_ctrl_defaultcfg {
+
+	};
+};
+
+&bpibus_ctrl {
+	pinctrl-names = "pin_default", 
+			"bpibus0_pin_high", "bpibus0_pin_low", "bpibus1_pin_high", "bpibus1_pin_low", 
+			"bpibus2_pin_high", "bpibus2_pin_low", "bpibus3_pin_high", "bpibus3_pin_low",
+			"bpibus4_pin_high", "bpibus4_pin_low", "bpibus5_pin_high", "bpibus5_pin_low", 
+			"bpibus6_pin_high", "bpibus6_pin_low", "bpibus7_pin_high", "bpibus7_pin_low",
+			"bpibus8_pin_high", "bpibus8_pin_low", "bpibus9_pin_high", "bpibus9_pin_low", 
+			"bpibus10_pin_high", "bpibus10_pin_low", "bpibus11_pin_high", "bpibus11_pin_low",
+			"bpibus12_pin_high", "bpibus12_pin_low", "bpibus13_pin_high", "bpibus13_pin_low", 
+			"bpibus14_pin_high", "bpibus14_pin_low", "bpibus15_pin_high", "bpibus15_pin_low",
+			"bpibus16_pin_high", "bpibus16_pin_low", "bpibus17_pin_high", "bpibus17_pin_low";
+	pinctrl-0 = <&bpibus_ctrl_pin_default>;
+	pinctrl-1 = <&bpibus_ctrl_bpibus0_pin_high>;
+	pinctrl-2 = <&bpibus_ctrl_bpibus0_pin_low>;
+	pinctrl-3 = <&bpibus_ctrl_bpibus1_pin_high>;
+	pinctrl-4 = <&bpibus_ctrl_bpibus1_pin_low>;
+	pinctrl-5 = <&bpibus_ctrl_bpibus2_pin_high>;
+	pinctrl-6 = <&bpibus_ctrl_bpibus2_pin_low>;
+	pinctrl-7 = <&bpibus_ctrl_bpibus3_pin_high>;
+	pinctrl-8 = <&bpibus_ctrl_bpibus3_pin_low>;
+	pinctrl-9 = <&bpibus_ctrl_bpibus4_pin_high>;
+	pinctrl-10 = <&bpibus_ctrl_bpibus4_pin_low>;
+	pinctrl-11 = <&bpibus_ctrl_bpibus5_pin_high>;
+	pinctrl-12 = <&bpibus_ctrl_bpibus5_pin_low>;
+	pinctrl-13 = <&bpibus_ctrl_bpibus6_pin_high>;
+	pinctrl-14 = <&bpibus_ctrl_bpibus6_pin_low>;
+	pinctrl-15 = <&bpibus_ctrl_bpibus7_pin_high>;
+	pinctrl-16 = <&bpibus_ctrl_bpibus7_pin_low>;
+	pinctrl-17 = <&bpibus_ctrl_bpibus8_pin_high>;
+	pinctrl-18 = <&bpibus_ctrl_bpibus8_pin_low>;
+	pinctrl-19 = <&bpibus_ctrl_bpibus9_pin_high>;
+	pinctrl-20 = <&bpibus_ctrl_bpibus9_pin_low>;
+	pinctrl-21 = <&bpibus_ctrl_bpibus10_pin_high>;
+	pinctrl-22 = <&bpibus_ctrl_bpibus10_pin_low>;
+	pinctrl-23 = <&bpibus_ctrl_bpibus11_pin_high>;
+	pinctrl-24 = <&bpibus_ctrl_bpibus11_pin_low>;
+	pinctrl-25 = <&bpibus_ctrl_bpibus12_pin_high>;
+	pinctrl-26 = <&bpibus_ctrl_bpibus12_pin_low>;
+	pinctrl-27 = <&bpibus_ctrl_bpibus13_pin_high>;
+	pinctrl-28 = <&bpibus_ctrl_bpibus13_pin_low>;
+	pinctrl-29 = <&bpibus_ctrl_bpibus14_pin_high>;
+	pinctrl-30 = <&bpibus_ctrl_bpibus14_pin_low>;
+	pinctrl-31 = <&bpibus_ctrl_bpibus15_pin_high>;
+	pinctrl-32 = <&bpibus_ctrl_bpibus15_pin_low>;
+	pinctrl-33 = <&bpibus_ctrl_bpibus16_pin_high>;
+	pinctrl-34 = <&bpibus_ctrl_bpibus16_pin_low>;
+	pinctrl-35 = <&bpibus_ctrl_bpibus17_pin_high>;
+	pinctrl-36 = <&bpibus_ctrl_bpibus17_pin_low>;
+	status = "okay";      
+};
+/* End:xen added by BPI BUS control by APP 20171014 */

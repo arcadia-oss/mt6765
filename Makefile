@@ -413,6 +413,7 @@ LINUXINCLUDE    := \
 		-I$(srctree)/arch/$(SRCARCH)/include \
 		-I$(objtree)/arch/$(SRCARCH)/include/generated \
 		$(if $(KBUILD_SRC), -I$(srctree)/include) \
+		-I$(srctree)/drivers/misc/mediatek/include \
 		-I$(objtree)/include \
 		$(USERINCLUDE)
 
@@ -431,6 +432,22 @@ KBUILD_LDFLAGS_MODULE := -T $(srctree)/scripts/module-common.lds
 KBUILD_LDFLAGS :=
 GCC_PLUGINS_CFLAGS :=
 CLANG_FLAGS :=
+
+# light start
+include $(srctree)/ProjectConfig.mk
+ifeq ($(strip $(MACRO_CAM_DEV_NODE)), yes)
+KBUILD_CPPFLAGS += -DMACRO_CAM_DEV_NODE
+endif
+ifeq ($(strip $(WIDE_ANGLE_CAM_DEV)), yes)
+KBUILD_CPPFLAGS += -DWIDE_ANGLE_CAM_DEV
+endif
+ifeq ($(strip $(TOUCHPANEL_GESTURE)), yes)
+KBUILD_CPPFLAGS += -DTOUCHPANEL_GESTURE
+endif
+ifeq ($(strip $(LED_SOFTWARE_BLINK)), yes)
+KBUILD_CPPFLAGS += -DLED_SOFTWARE_BLINK
+endif
+# light end
 
 export ARCH SRCARCH CONFIG_SHELL HOSTCC KBUILD_HOSTCFLAGS CROSS_COMPILE AS LD CC
 export CPP AR NM STRIP OBJCOPY OBJDUMP KBUILD_HOSTLDFLAGS KBUILD_HOSTLDLIBS
@@ -709,6 +726,7 @@ stackp-flags-$(CONFIG_STACKPROTECTOR_STRONG)      := -fstack-protector-strong
 
 KBUILD_CFLAGS += $(stackp-flags-y)
 
+KBUILD_CPPFLAGS += -DUSE_OLD_SENSOR_DTS_ARCH
 ifeq ($(cc-name),clang)
 KBUILD_CPPFLAGS += $(call cc-option,-Qunused-arguments,)
 KBUILD_CFLAGS += $(call cc-disable-warning, format-invalid-specifier)
@@ -945,7 +963,7 @@ include scripts/Makefile.ubsan
 # last assignments
 KBUILD_CPPFLAGS += $(ARCH_CPPFLAGS) $(KCPPFLAGS)
 KBUILD_AFLAGS   += $(ARCH_AFLAGS)   $(KAFLAGS)
-KBUILD_CFLAGS   += $(ARCH_CFLAGS)   $(KCFLAGS)
+KBUILD_CFLAGS   += $(ARCH_CFLAGS)   $(KCFLAGS) -Werror
 
 # Use --build-id when available.
 LDFLAGS_BUILD_ID := $(call ld-option, --build-id)

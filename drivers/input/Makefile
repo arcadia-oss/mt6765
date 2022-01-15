@@ -26,6 +26,16 @@ obj-$(CONFIG_INPUT_TABLET)	+= tablet/
 obj-$(CONFIG_INPUT_TOUCHSCREEN)	+= touchscreen/
 obj-$(CONFIG_INPUT_MISC)	+= misc/
 
+obj-$(CONFIG_MTK_FINGERPRINT_SUPPORT)  += fingerprint/
+ifneq ($(findstring fpsensor_ree, $(strip $(CUSTOM_KERNEL_FINGERPRINT))),)
+obj-y   +=  fingerprint/fpsensor_ree/
+endif
+##ifneq ($(findstring fpsensor_tee, $(strip $(CUSTOM_KERNEL_FINGERPRINT))),)
+obj-y   +=  fingerprint/fpsensor_tee/
+##endif
+
+
+
 obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power.o
 
 obj-$(CONFIG_RMI4_CORE)		+= rmi4/
