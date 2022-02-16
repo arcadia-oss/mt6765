@@ -28,36 +28,13 @@ extern int tpd_start_profiling;
 extern int tpd_down_status;
 
 #define TPD_DEBUG_PRINT_INT                           \
-	do {                                          \
-		if (tpd_debug_time) {                         \
-			pr_info("tp_int\n");                      \
-		}                                            \
-	} while (0)
+do {} while (0)
 
 #define TPD_DEBUG_PRINT_UP                           \
-	do {                                                              \
-		if (pending == 0 && tpd_debug_time) {        \
-			tpd_down_status = 0;                \
-	    pr_debug("up on %ld ms (+%ld ms)\n",                              \
-	       (tpd_last_2_int_time[1] - tpd_last_down_time) / 1000,        \
-	       (tpd_last_2_int_time[1] - tpd_last_2_int_time[0]) / 1000);   \
-		}                                          \
-	} while (0)
+do {} while (0)
 
 #define TPD_DEBUG_PRINT_DOWN                     \
-	do {                                   \
-		if (tpd_debug_time) {                   \
-			if (tpd_down_status == 0)\
-				pr_debug("down on 0 ms\n");        \
-			else		\
-				pr_debug("move on %ld ms (+%ld ms)\n",  \
-		    (tpd_last_2_int_time[1] - \
-			tpd_last_down_time) / 1000,       \
-		    (tpd_last_2_int_time[1] -\
-				tpd_last_2_int_time[0]) / 1000);  \
-			tpd_down_status = 1;         \
-		}                \
-	} while (0)
+do {} while (0)
 
 #define TPD_DEBUG_SET_TIME   do { tpd_debug_set_time(); } while (0)
 

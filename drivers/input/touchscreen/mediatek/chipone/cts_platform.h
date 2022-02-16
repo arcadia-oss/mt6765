@@ -62,17 +62,17 @@ extern struct chipone_ts_data *chipone_ts_data;
 #define LOG_TAG         "icn19911"
 #endif /* LOG_TAG */
 
-#define cts_err(fmt, ...)   \
-    printk("<E>CTS-" LOG_TAG " " fmt"\n", ##__VA_ARGS__)
-#define cts_warn(fmt, ...)  \
-    printk("<W>CTS-" LOG_TAG " " fmt"\n", ##__VA_ARGS__)
-#define cts_info(fmt, ...)  \
-    printk("<I>CTS-" LOG_TAG " " fmt"\n", ##__VA_ARGS__)
-#define cts_dbg(fmt, ...)   \
-    do {                                                    \
-        if (cts_show_debug_log)                                     \
-            printk("<D>CTS-" LOG_TAG " "fmt"\n", ##__VA_ARGS__);   \
-    } while(0)
+#define cts_err(fmt, ...) \
+do {} while(0)
+
+#define cts_warn(fmt, ...) \
+do {} while(0)
+
+#define cts_info(fmt, ...) \
+do {} while(0)
+
+#define cts_dbg(fmt, ...) \
+do {} while(0)
 
 struct cts_device;
 struct cts_device_touch_msg;
