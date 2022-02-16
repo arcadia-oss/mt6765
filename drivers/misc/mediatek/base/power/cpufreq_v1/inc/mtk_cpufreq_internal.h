@@ -85,9 +85,9 @@ extern unsigned int func_lv_mask;
 #define DEBUG 1
 
 #define TAG	"[Power/cpufreq] "
-#define tag_pr_notice(fmt, args...)	pr_notice(TAG fmt, ##args)
-#define tag_pr_info(fmt, args...)	pr_info(TAG fmt, ##args)
-#define tag_pr_debug(fmt, args...)	pr_debug(TAG fmt, ##args)
+#define tag_pr_notice(fmt, args...)	do {} while (0)
+#define tag_pr_info(fmt, args...)	do {} while (0)
+#define tag_pr_debug(fmt, args...)	do {} while (0)
 
 #define cpufreq_ver(fmt, args...)		\
 do {						\
