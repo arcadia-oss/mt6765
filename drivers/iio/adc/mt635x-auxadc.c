@@ -704,16 +704,16 @@ static int auxadc_get_rac(struct mt635x_auxadc_device *adc_dev)
 				ret = rac * 1;
 			if (ret < 50) {
 				ret = -1;
-				pr_info("bypass due to Rac < 50mOhm\n");
+				pr_debug("bypass due to Rac < 50mOhm\n");
 			}
 		} else {
 			ret = -1;
-			pr_info("bypass due to c_diff < 70mA\n");
+			pr_debug("bypass due to c_diff < 70mA\n");
 		}
-		pr_info("v1=%d,v2=%d,c1=%d,c2=%d,v_diff=%d,c_diff=%d\n",
+		pr_debug("v1=%d,v2=%d,c1=%d,c2=%d,v_diff=%d,c_diff=%d\n",
 			vbat_1, vbat_2, ibat_1, ibat_2,
 			(vbat_1 - vbat_2), (ibat_2 - ibat_1));
-		pr_info("rac=%d,ret=%d,retry=%d\n",
+		pr_debug("rac=%d,ret=%d,retry=%d\n",
 			rac, ret, retry_count);
 
 		if (++retry_count >= 3)
@@ -912,7 +912,7 @@ static int auxadc_priv_read_channel(struct mt635x_auxadc_device *adc_dev,
 
 	ret = get_auxadc_out(adc_dev, auxadc_chan, &val);
 	if (ret < 0)
-		pr_info("%s ret=%d\n", __func__, ret);
+		pr_debug("%s ret=%d\n", __func__, ret);
 	val = val * auxadc_chan->r_ratio[0] * VOLT_FULL;
 	val = (val / auxadc_chan->r_ratio[1]) >> auxadc_chan->res;
 
@@ -948,7 +948,7 @@ static int wk_bat_temp_dbg(struct mt635x_auxadc_device *adc_dev,
 	unsigned short i;
 
 	vbif28 = auxadc_priv_read_channel(adc_dev, AUXADC_VBIF);
-	pr_notice("BAT_TEMP_PREV:%d,BAT_TEMP:%d,VBIF28:%d\n",
+	pr_debug("BAT_TEMP_PREV:%d,BAT_TEMP:%d,VBIF28:%d\n",
 		bat_temp_prev, bat_temp, vbif28);
 	if (bat_temp < 200 || abs(bat_temp_prev - bat_temp) > 100) {
 		auxadc_debug_dump(adc_dev, 0);
@@ -958,7 +958,7 @@ static int wk_bat_temp_dbg(struct mt635x_auxadc_device *adc_dev,
 							 AUXADC_BAT_TEMP);
 		}
 		bat_temp_new = bat_temp_filter(arr_bat_temp, 5);
-		pr_notice("%d,%d,%d,%d,%d, BAT_TEMP_NEW:%d\n",
+		pr_debug("%d,%d,%d,%d,%d, BAT_TEMP_NEW:%d\n",
 			  arr_bat_temp[0], arr_bat_temp[1], arr_bat_temp[2],
 			  arr_bat_temp[3], arr_bat_temp[4], bat_temp_new);
 
@@ -970,11 +970,11 @@ static int wk_bat_temp_dbg(struct mt635x_auxadc_device *adc_dev,
 			arr_bat_temp[i] =
 				auxadc_priv_read_channel(adc_dev,
 							 AUXADC_BAT_TEMP);
-			pr_notice("[CH3_DBG] %d,%d\n",
+			pr_debug("[CH3_DBG] %d,%d\n",
 				  bat, arr_bat_temp[i]);
 		}
 		bat_temp_new = bat_temp_filter(arr_bat_temp, 5);
-		pr_notice("Final BAT_TEMP_NEW:%d\n", bat_temp_new);
+		pr_debug("Final BAT_TEMP_NEW:%d\n", bat_temp_new);
 	}
 	return bat_temp_new;
 }
@@ -997,7 +997,7 @@ static int mt635x_bat_temp_cali(struct mt635x_auxadc_device *adc_dev,
 	if (bat_temp < 200 || abs(bat_temp_prev - bat_temp) > 100) {
 		/* dump debug log when BAT_TEMP being abnormal */
 		bat_temp = wk_bat_temp_dbg(adc_dev, bat_temp_prev, bat_temp);
-		pr_notice("PMIC AUXADC BAT_TEMP aee_count=%d\n", aee_count);
+		pr_debug("PMIC AUXADC BAT_TEMP aee_count=%d\n", aee_count);
 		aee_count++;
 	} else if (dbg_count % 50 == 0) {
 		/* dump debug log in normal case */
@@ -1035,16 +1035,16 @@ static int auxadc_cali_imix_r(struct mt635x_auxadc_device *dev)
 		adc_dev = dev;
 		return 0;
 	} else if (!adc_dev) {
-		pr_info("%s NULL adc_dev, skip\n",
+		pr_debug("%s NULL adc_dev, skip\n",
 			__func__);
 		return -EINVAL;
 	} else if (!get_mtk_gauge_psy()) {
-		pr_info("%s gauge disabled, skip\n",
+		pr_debug("%s gauge disabled, skip\n",
 			__func__);
 		return -ENODEV;
 	} else if (cur_uisoc < 0 ||
 		   cur_uisoc == pre_uisoc) {
-		pr_info("%s pre_SOC=%d SOC=%d, skip\n",
+		pr_debug("%s pre_SOC=%d SOC=%d, skip\n",
 			__func__, pre_uisoc, cur_uisoc);
 		return 0;
 	}
@@ -1056,7 +1056,7 @@ static int auxadc_cali_imix_r(struct mt635x_auxadc_device *dev)
 			return -EIO;
 	}
 	imix_r_avg = imix_r_avg / IMIX_R_CALI_CNT;
-	pr_info("[%s] %d,%d,ravg:%d\n",
+	pr_debug("[%s] %d,%d,ravg:%d\n",
 		__func__, rac_val[0], rac_val[1], imix_r_avg);
 
 	if (imix_r_avg > IMIX_R_MIN_MOHM)
