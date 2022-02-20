@@ -87,12 +87,12 @@ s32 map_cg_regs(struct mt_i2c *i2c)
 		cg_node = of_find_compatible_node(NULL, NULL,
 			i2c->dev_comp->clk_compatible);
 		if (!cg_node) {
-			pr_info("Cannot find cg_node\n");
+			pr_debug("Cannot find cg_node\n");
 			return -ENODEV;
 		}
 		cg_base = of_iomap(cg_node, 0);
 		if (!cg_base) {
-			pr_info("cg_base iomap failed\n");
+			pr_debug("cg_base iomap failed\n");
 			return -ENOMEM;
 		}
 		ret = 0;
@@ -107,7 +107,7 @@ void dump_cg_regs(struct mt_i2c *i2c)
 	u32 clk_sel_val, arbit_val, clk_sel_offs, arbit_offs;
 
 	if (!cg_base || i2c->id >= I2C_MAX_CHANNEL) {
-		pr_info("cg_base %p, i2c id = %d\n", cg_base, i2c->id);
+		pr_debug("cg_base %p, i2c id = %d\n", cg_base, i2c->id);
 		return;
 	}
 
@@ -115,7 +115,7 @@ void dump_cg_regs(struct mt_i2c *i2c)
 	clk_sta_val = readl(cg_base + clk_sta_offs);
 	cg_bit = i2c->cg_bit;
 
-	pr_info("[I2C] cg regs dump:\n"
+	pr_debug("[I2C] cg regs dump:\n"
 		"name %s, offset 0x%x: value = 0x%08x, bit %d, clock %s\n",
 		i2c->dev_comp->clk_compatible,
 		clk_sta_offs, clk_sta_val, cg_bit,
@@ -126,7 +126,7 @@ void dump_cg_regs(struct mt_i2c *i2c)
 	clk_sel_val = readl(cg_base + clk_sel_offs);
 	arbit_offs = i2c->dev_comp->arbit_offset;
 	arbit_val = readl(cg_base + arbit_offs);
-	pr_info("[I2C] clk src & arbit dump:\n"
+	pr_debug("[I2C] clk src & arbit dump:\n"
 		"name: %s, clk_sel_offs: 0x%x, val=0x%08x, arbit_offs: 0x%x, val=0x%08x\n",
 			i2c->dev_comp->clk_compatible,
 			clk_sel_offs, clk_sel_val,
@@ -141,12 +141,12 @@ s32 map_dma_regs(void)
 
 	dma_node = of_find_compatible_node(NULL, NULL, "mediatek,ap_dma");
 	if (!dma_node) {
-		pr_info("Cannot find dma_node\n");
+		pr_debug("Cannot find dma_node\n");
 		return -ENODEV;
 	}
 	dma_base = of_iomap(dma_node, 0);
 	if (!dma_base) {
-		pr_info("dma_base iomap failed\n");
+		pr_debug("dma_base iomap failed\n");
 		return -ENOMEM;
 	}
 	return 0;
@@ -158,15 +158,15 @@ void dump_dma_regs(void)
 	int i;
 
 	if (!dma_base) {
-		pr_info("dma_base NULL\n");
+		pr_debug("dma_base NULL\n");
 		return;
 	}
 
 	status =  readl(dma_base + 8);
-	pr_info("DMA RUNNING STATUS : 0x%x .\n", status);
+	pr_debug("DMA RUNNING STATUS : 0x%x .\n", status);
 	for (i = 0; i < 21 ; i++) {
 		if (status & (0x1 << i))
-			pr_info("DMA[%d] CONTROL REG : 0x%x, DEBUG : 0x%x .\n",
+			pr_debug("DMA[%d] CONTROL REG : 0x%x, DEBUG : 0x%x .\n",
 				i,
 				readl(dma_base + 0x80 + 0x80 * i + 0x18),
 				readl(dma_base + 0x80 + 0x80 * i + 0x50));
@@ -646,8 +646,8 @@ void i2c_dump_info(struct mt_i2c *i2c)
 {
 	/* I2CFUC(); */
 	/* int val=0; */
-	pr_info_ratelimited("%s +++++++++++++++++++\n", __func__);
-	pr_info_ratelimited("I2C structure:\n"
+	pr_debug_ratelimited("%s +++++++++++++++++++\n", __func__);
+	pr_debug_ratelimited("I2C structure:\n"
 	       I2CTAG "Clk=%ld,Id=%d,Op=0x%x,Irq_stat=0x%x,Total_len=0x%x\n"
 	       I2CTAG "Trans_len=0x%x,Trans_num=0x%x,Trans_auxlen=0x%x,\n"
 	       I2CTAG "speed=%d,Trans_stop=%u,cg_cnt=%d,hs_only=%d,\n"
@@ -657,8 +657,8 @@ void i2c_dump_info(struct mt_i2c *i2c)
 			i2c->trans_stop, i2c->cg_cnt,
 			i2c->hs_only, i2c->ch_offset, i2c->ch_offset_default);
 
-	pr_info_ratelimited("base addr:0x%p\n", i2c->base);
-	pr_info_ratelimited("I2C register:\n"
+	pr_debug_ratelimited("base addr:0x%p\n", i2c->base);
+	pr_debug_ratelimited("I2C register:\n"
 	       I2CTAG "SLAVE_ADDR=0x%x,INTR_MASK=0x%x,INTR_STAT=0x%x,\n"
 	       I2CTAG "CONTROL=0x%x,TRANSFER_LEN=0x%x,TRANSAC_LEN=0x%x,\n"
 	       I2CTAG "DELAY_LEN=0x%x,TIMING=0x%x,LTIMING=0x%x,START=0x%x\n"
@@ -686,7 +686,7 @@ void i2c_dump_info(struct mt_i2c *i2c)
 	       (i2c_readw(i2c, OFFSET_DMA_FSM_DEBUG)),
 	       (i2c_readw(i2c, OFFSET_MCU_INTR)));
 
-	pr_info_ratelimited("before enable DMA register(0x%lx):\n"
+	pr_debug_ratelimited("before enable DMA register(0x%lx):\n"
 	       I2CTAG "INT_FLAG=0x%x,INT_EN=0x%x,EN=0x%x,RST=0x%x,\n"
 	       I2CTAG "STOP=0x%x,FLUSH=0x%x,CON=0x%x,\n"
 	       I2CTAG "TX_MEM_ADDR=0x%x, RX_MEM_ADDR=0x%x\n"
@@ -707,7 +707,7 @@ void i2c_dump_info(struct mt_i2c *i2c)
 	       g_dma_regs[i2c->id].int_buf_size, g_dma_regs[i2c->id].debug_sta,
 	       g_dma_regs[i2c->id].tx_mem_addr2,
 	       g_dma_regs[i2c->id].rx_mem_addr2);
-	pr_info_ratelimited("DMA register(0x%p):\n"
+	pr_debug_ratelimited("DMA register(0x%p):\n"
 	       I2CTAG "INT_FLAG=0x%x,INT_EN=0x%x,EN=0x%x,RST=0x%x,\n"
 	       I2CTAG "STOP=0x%x,FLUSH=0x%x,CON=0x%x,\n"
 	       I2CTAG "TX_MEM_ADDR=0x%x, RX_MEM_ADDR=0x%x,\n"
@@ -729,7 +729,7 @@ void i2c_dump_info(struct mt_i2c *i2c)
 	       (i2c_readl_dma(i2c, OFFSET_DEBUG_STA)),
 	       (i2c_readl_dma(i2c, OFFSET_TX_MEM_ADDR2)),
 	       (i2c_readl_dma(i2c, OFFSET_RX_MEM_ADDR2)));
-	pr_info_ratelimited("%s -----------------------\n", __func__);
+	pr_debug_ratelimited("%s -----------------------\n", __func__);
 
 	dump_i2c_info(i2c);
 	if (i2c->ccu_offset) {
@@ -787,12 +787,12 @@ void i2c_gpio_dump_info(struct mt_i2c *i2c)
 void dump_i2c_status(unsigned int id)
 {
 	if (id >= I2C_MAX_CHANNEL) {
-		pr_info("error %s, id = %d\n", __func__, id);
+		pr_debug("error %s, id = %d\n", __func__, id);
 		return;
 	}
 
 	if (!g_mt_i2c[id]) {
-		pr_info("error %s, g_mt_i2c[%d] == NULL\n", __func__, id);
+		pr_debug("error %s, g_mt_i2c[%d] == NULL\n", __func__, id);
 		return;
 	}
 
@@ -1369,19 +1369,19 @@ int i2c_tui_enable_clock(int id)
 
 	adap = i2c_get_adapter(id);
 	if (!adap) {
-		pr_info("Cannot get adapter\n");
+		pr_debug("Cannot get adapter\n");
 		return -1;
 	}
 
 	i2c = i2c_get_adapdata(adap);
 	ret = clk_prepare_enable(i2c->clk_main);
 	if (ret) {
-		pr_info("Cannot enable main clk\n");
+		pr_debug("Cannot enable main clk\n");
 		return ret;
 	}
 	ret = clk_prepare_enable(i2c->clk_dma);
 	if (ret) {
-		pr_info("Cannot enable dma clk\n");
+		pr_debug("Cannot enable dma clk\n");
 		clk_disable_unprepare(i2c->clk_main);
 		return ret;
 	}
@@ -1396,7 +1396,7 @@ int i2c_tui_disable_clock(int id)
 
 	adap = i2c_get_adapter(id);
 	if (!adap) {
-		pr_info("Cannot get adapter\n");
+		pr_debug("Cannot get adapter\n");
 		return -1;
 	}
 
@@ -1636,7 +1636,7 @@ static int mt_i2c_parse_dt(struct device_node *np, struct mt_i2c *i2c)
 	i2c->buffermode = of_property_read_bool(np, "mediatek,buffermode_used");
 	i2c->hs_only = of_property_read_bool(np, "mediatek,hs_only");
 	i2c->fifo_only = of_property_read_bool(np, "mediatek,fifo_only");
-	pr_info("[I2C]id:%d,freq:%d,div:%d,ch_offset:0x%x,offset_dma:0x%x,offset_ccu:0x%x\n",
+	pr_debug("[I2C]id:%d,freq:%d,div:%d,ch_offset:0x%x,offset_dma:0x%x,offset_ccu:0x%x\n",
 		i2c->id, i2c->speed_hz, i2c->clk_src_div,
 		i2c->ch_offset_default,
 		i2c->ch_offset_dma_default, i2c->ccu_offset);
@@ -1653,7 +1653,7 @@ int mt_i2c_parse_comp_data(void)
 
 	comp_node = of_find_compatible_node(NULL, NULL, "mediatek,i2c_common");
 	if (!comp_node) {
-		pr_info("Cannot find i2c_common node\n");
+		pr_debug("Cannot find i2c_common node\n");
 		return -ENODEV;
 	}
 	of_property_read_u8(comp_node, "dma_support",
@@ -1675,7 +1675,7 @@ int mt_i2c_parse_comp_data(void)
 		of_property_read_u8_array(comp_node, "clk_compatible",
 			(u8 *)i2c_common_compat.clk_compatible, ret);
 	else
-		pr_info("[I2C]No clk_compatible(%d)\n", ret);
+		pr_debug("[I2C]No clk_compatible(%d)\n", ret);
 	of_property_read_u32(comp_node, "clk_sel_offset",
 		(u32 *)&i2c_common_compat.clk_sel_offset);
 	of_property_read_u32(comp_node, "arbit_offset",
@@ -1857,7 +1857,7 @@ static int mt_i2c_probe(struct platform_device *pdev)
 	platform_set_drvdata(pdev, i2c);
 
 	if (!map_cg_regs(i2c))
-		pr_info("Map cg regs successfully.\n");
+		pr_debug("Map cg regs successfully.\n");
 
 	return 0;
 }
@@ -1941,12 +1941,12 @@ static s32 enable_arbitration(void)
 
 	pericfg_node = of_find_compatible_node(NULL, NULL, "mediatek,pericfg");
 	if (!pericfg_node) {
-		pr_info("Cannot find pericfg node\n");
+		pr_debug("Cannot find pericfg node\n");
 		return -ENODEV;
 	}
 	pericfg_base = of_iomap(pericfg_node, 0);
 	if (!pericfg_base) {
-		pr_info("pericfg iomap failed\n");
+		pr_debug("pericfg iomap failed\n");
 		return -ENOMEM;
 	}
 	/* Enable the I2C arbitration */
@@ -1962,15 +1962,15 @@ static s32 __init mt_i2c_init(void)
 
 	ret = enable_arbitration();
 	if (ret) {
-		pr_info("Cannot enalbe arbitration.\n");
+		pr_debug("Cannot enalbe arbitration.\n");
 		return ret;
 	}
 #endif
 
 	if (!map_dma_regs())
-		pr_info("Mapp dma regs successfully.\n");
+		pr_debug("Mapp dma regs successfully.\n");
 	if (!mt_i2c_parse_comp_data())
-		pr_info("Get compatible data from dts successfully.\n");
+		pr_debug("Get compatible data from dts successfully.\n");
 
 	return platform_driver_register(&mt_i2c_driver);
 }
