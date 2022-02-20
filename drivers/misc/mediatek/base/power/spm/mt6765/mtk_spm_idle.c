@@ -166,7 +166,7 @@ int mtk_idle_trigger_wfi(int idle_type, unsigned int idle_flag, int cpu)
 	pwrctrl = get_pwrctrl(idle_type);
 
 	if (!pwrctrl) {
-		pr_info("Error: pwrctrl is NULL!\n");
+		pr_debug("Error: pwrctrl is NULL!\n");
 		return 0;
 	}
 
@@ -186,7 +186,7 @@ int mtk_idle_trigger_wfi(int idle_type, unsigned int idle_flag, int cpu)
 	print_ftrace_tag(idle_type, cpu, 0);
 
 	if (spm_dormant_sta < 0)
-		pr_info("mtk_enter_idle_state(%d) ret %d\n",
+		pr_debug("mtk_enter_idle_state(%d) ret %d\n",
 			cpuidle_mode[idle_type], spm_dormant_sta);
 
 	return spm_dormant_sta;
@@ -258,7 +258,7 @@ void mtk_idle_pre_process_by_chip(
 	unsigned int pcm_flags1;
 
 	if (!pwrctrl) {
-		pr_info("Error: pwrctrl is NULL!\n");
+		pr_debug("Error: pwrctrl is NULL!\n");
 		return;
 	}
 
@@ -290,7 +290,7 @@ void mtk_idle_pre_process_by_chip(
 			wd_api->wd_suspend_notify();
 		} else {
 			aee_sram_printk("FAILED TO GET WD API\n");
-			pr_info("[IDLE] FAILED TO GET WD API\n");
+			pr_debug("[IDLE] FAILED TO GET WD API\n");
 		}
 #else
 		SMC_CALL(ARGS, SPM_ARGS_PCM_WDT, 1, 30);
@@ -342,7 +342,7 @@ void mtk_idle_post_process_by_chip(
 	unsigned int wr = WR_NONE;
 
 	if (!pwrctrl) {
-		pr_info("Error: pwrctrl is NULL!\n");
+		pr_debug("Error: pwrctrl is NULL!\n");
 		return;
 	}
 
@@ -378,7 +378,7 @@ void mtk_idle_post_process_by_chip(
 				aee_sram_printk(
 					"pwrctrl->wdt_disable %d\n",
 						pwrctrl->wdt_disable);
-				pr_info(
+				pr_debug(
 					"[SPM] pwrctrl->wdt_disable %d\n",
 						pwrctrl->wdt_disable);
 			}
@@ -453,7 +453,7 @@ static unsigned int mtk_dpidle_output_log(
 	}
 
 	if (print_log) {
-		pr_info("Power/swap op_cond = 0x%x\n", op_cond);
+		pr_debug("Power/swap op_cond = 0x%x\n", op_cond);
 		wr = __spm_output_wake_reason(
 			wakesta, false, mtk_idle_name(idle_type));
 		if (idle_flag & MTK_IDLE_LOG_RESOURCE_USAGE)

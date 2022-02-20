@@ -122,7 +122,7 @@ static void get_spm_wakesrc_irq(void)
 		node = of_find_compatible_node(NULL, NULL,
 			spm_wakesrc_irqs[i].name);
 		if (!node) {
-			pr_info("[name:spm&][SPM] find '%s' node failed\n",
+			pr_debug("[name:spm&][SPM] find '%s' node failed\n",
 				spm_wakesrc_irqs[i].name);
 			continue;
 		}
@@ -132,7 +132,7 @@ static void get_spm_wakesrc_irq(void)
 				spm_wakesrc_irqs[i].order);
 
 		if (!spm_wakesrc_irqs[i].irq_no) {
-			pr_info("[name:spm&][SPM] get '%s' failed\n",
+			pr_debug("[name:spm&][SPM] get '%s' failed\n",
 				spm_wakesrc_irqs[i].name);
 		}
 	}
@@ -388,7 +388,7 @@ bool spm_is_enable_sleep(void)
 bool spm_suspend_condition_check(void)
 {
 	if (is_infra_pdn(suspend_pcm_flags) && !is_cpu_pdn(suspend_pcm_flags)) {
-		pr_info("[SLP] CANNOT SLEEP DUE TO INFRA PDN BUT CPU PDN\n");
+		pr_debug("[SLP] CANNOT SLEEP DUE TO INFRA PDN BUT CPU PDN\n");
 		return false;
 	}
 

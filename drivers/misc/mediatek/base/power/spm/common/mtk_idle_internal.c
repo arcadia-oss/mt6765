@@ -69,8 +69,6 @@ static idle_footprint_t fp[NR_IDLE_TYPES] = {
 int __attribute__((weak)) mtk_idle_trigger_wfi(
 	int idle_type, unsigned int idle_flag, int cpu)
 {
-	printk_deferred("[name:spm&]Power/swap %s is not implemented!\n"
-			, __func__);
 
 	do {
 		isb();
@@ -283,7 +281,7 @@ int mtk_idle_enter(
 	#if defined(CONFIG_SERIAL_8250_MT6577) && !defined(SECURE_SERIAL_8250)
 	if (!(idle_flag & MTK_IDLE_LOG_DUMP_LP_GS)) {
 		if (mtk8250_request_to_sleep()) {
-			pr_info_ratelimited("Power/swap %s Fail to request uart sleep\n",
+			pr_debug_ratelimited("Power/swap %s Fail to request uart sleep\n",
 				__func__);
 			goto RESTORE_UART;
 		}
@@ -373,14 +371,14 @@ int mtk_idle_notifier_register(struct notifier_block *n)
 	symname = kallsyms_lookup((unsigned long)n->notifier_call,
 			NULL, NULL, NULL, namebuf);
 	if (symname) {
-		pr_info("Power/swap [mt_idle_ntf] <%02d>%08lx (%s)\n",
+		pr_debug("Power/swap [mt_idle_ntf] <%02d>%08lx (%s)\n",
 			index++, (unsigned long)n->notifier_call, symname);
 	} else {
-		pr_info("Power/swap [mt_idle_ntf] <%02d>%08lx\n",
+		pr_debug("Power/swap [mt_idle_ntf] <%02d>%08lx\n",
 			index++, (unsigned long)n->notifier_call);
 	}
 	#else
-	pr_info("Power/swap [mt_idle_ntf] <%02d>%08lx\n",
+	pr_debug("Power/swap [mt_idle_ntf] <%02d>%08lx\n",
 			index++, (unsigned long)n->notifier_call);
 	#endif
 

@@ -79,7 +79,7 @@ void spm_suspend_pre_process(struct pwr_ctrl *pwrctrl)
 	ret = spm_to_sspm_command(SPM_SUSPEND, &spm_d);
 	if (ret < 0) {
 		aee_sram_printk("ret %d", ret);
-		pr_info("[SPM] ret %d", ret);
+		pr_debug("[SPM] ret %d", ret);
 	}
 #endif
 

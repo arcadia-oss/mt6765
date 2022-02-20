@@ -69,7 +69,6 @@ static struct mtk_idle_buf idle_state_log;
 
 #define reset_log()              reset_idle_buf(idle_log)
 #define get_log()                get_idle_buf(idle_log)
-#define append_log(fmt, args...) idle_buf_append(idle_log, fmt, ##args)
 
 struct mtk_idle_block {
 	u64 prev_time;
@@ -294,13 +293,10 @@ static void mtk_idle_dump_cnt(int type)
 	p_idle = &idle_prof[type].block;
 
 	if (unlikely(p_idle->init == false)) {
-		append_log("Not initialized --- ");
 		return;
 	}
 
 	reset_idle_buf(buf);
-
-	append_log("%s: ", idle_prof[type].ratio.name);
 
 	for (i = 0; i < nr_cpu_ids; i++) {
 		idle_cnt = p_idle->cnt[i] - p_idle->last_cnt[i];
@@ -314,11 +310,6 @@ static void mtk_idle_dump_cnt(int type)
 
 	if (enter_idle && total_cnt > 0)
 		idle_buf_append(buf, "Total = %lu, ", total_cnt);
-
-	if (enter_idle)
-		append_log("%s --- ", get_idle_buf(buf));
-	else
-		append_log("No enter --- ");
 }
 
 static DEFINE_SPINLOCK(idle_dump_cnt_spin_lock);
@@ -339,7 +330,6 @@ void mtk_idle_dump_cnt_in_interval(void)
 
 	if (((idle_cnt_dump_curr_time - idle_cnt_dump_prev_time) >
 		idle_cnt_dump_criteria)) {
-		dump_log = true;
 		idle_cnt_dump_prev_time = idle_cnt_dump_curr_time;
 	}
 
@@ -355,9 +345,6 @@ void mtk_idle_dump_cnt_in_interval(void)
 	mtk_idle_dump_cnt(IDLE_TYPE_SO3);
 	mtk_idle_dump_cnt(IDLE_TYPE_SO);
 
-	/* dump log */
-	printk_deferred("[name:spm&]Power/swap %s\n", get_log());
-
 	/* dump idle ratio */
 	if (idle_ratio_en) {
 		idle_ratio_profile_duration =
@@ -365,17 +352,11 @@ void mtk_idle_dump_cnt_in_interval(void)
 			 - idle_ratio_profile_start_time;
 
 		reset_log();
-		append_log("--- CPU idle: %llu, ", idle_ratio_profile_duration);
 		for (i = 0; i < NR_IDLE_TYPES; i++) {
 			if (idle_prof[i].ratio.start == 0)
 				continue;
-			append_log("%s = %llu, "
-				, idle_prof[i].ratio.name
-				, idle_prof[i].ratio.value);
 			idle_prof[i].ratio.value = 0;
 		}
-		append_log("--- (ms)\n");
-		printk_deferred("[name:spm&]Power/swap %s\n", get_log());
 		idle_ratio_profile_start_time = idle_get_current_time_ms();
 	}
 }
@@ -433,9 +414,6 @@ bool mtk_idle_select_state(int type, int reason)
 				, "[%d] = (%lu), "
 				, i, p_idle->cnt[i]);
 
-		printk_deferred("[name:spm&]Power/swap %s\n"
-				, get_idle_buf(idle_state_log));
-
 		/* block category */
 		reset_idle_buf(idle_state_log);
 		idle_buf_append(idle_state_log, "%s_block_cnt: ", p_idle->name);
@@ -445,8 +423,6 @@ bool mtk_idle_select_state(int type, int reason)
 						, "[%s] = %lu, "
 						, mtk_idle_block_reason_name(i)
 						, p_idle->block_cnt[i]);
-		printk_deferred("[name:spm&]Power/swap %s\n"
-				, get_idle_buf(idle_state_log));
 
 		/* block mask */
 		reset_idle_buf(idle_state_log);
@@ -455,8 +431,6 @@ bool mtk_idle_select_state(int type, int reason)
 		idle_state_log.p_idx += mtk_idle_cond_append_info(true, type,
 			idle_state_log.p_idx,
 			IDLE_LOG_BUF_LEN - strlen(idle_state_log.buf));
-		printk_deferred("[name:spm&]Power/swap %s\n"
-				, get_idle_buf(idle_state_log));
 
 		memset(p_idle->block_cnt, 0,
 			NR_REASONS * sizeof(p_idle->block_cnt[0]));
@@ -482,9 +456,6 @@ void mtk_idle_block_setting(
 
 	if (cnt && block_cnt)
 		p_idle->init = true;
-	else
-		printk_deferred("[name:spm&]Power/swap BLOCK FAIL (type:%d)\n"
-				, type);
 
 	#if SPM_MET_TAGGING
 	if (type == IDLE_TYPE_RG)
@@ -585,15 +556,9 @@ void mtk_idle_latency_profile_result(unsigned int idle_type)
 		pdata->total[2] += (data[2]);
 		pdata->count++;
 	} else {
-		printk_deferred("[name:spm&]Power/latency_profile avg %s: %u, %u, %u\n"
-			, mtk_idle_name(idle_type)
-			, (unsigned int)pdata->total[0]/PROFILE_LATENCY_NUMBER
-			, (unsigned int)pdata->total[1]/PROFILE_LATENCY_NUMBER
-			, (unsigned int)pdata->total[2]/PROFILE_LATENCY_NUMBER);
 		pdata->count = 0;
 		pdata->total[0] = pdata->total[1] = pdata->total[2] = 0;
 	}
 
-	printk_deferred("[name:spm&]Power/latency_profile %s\n", plog);
 }
 
