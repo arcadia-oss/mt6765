@@ -26,7 +26,7 @@
 	/* chosen */
 	chosen: chosen {
 		bootargs = "vmalloc=400M \
-page_owner=on quiet \
+page_owner=on quiet nodebugmon \
 swiotlb=noforce androidboot.hardware=mt6765 \
 maxcpus=8 loop.max_part=7 \
 firmware_class.path=/vendor/firmware";
