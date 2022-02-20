@@ -38,7 +38,7 @@ static void tsbattery_exit(void);
 int __attribute__ ((weak))
 read_tbat_value(void)
 {
-	pr_notice("[Thermal] E_WF: %s doesn't exist\n", __func__);
+	pr_debug("[Thermal] E_WF: %s doesn't exist\n", __func__);
 	return 30;
 }
 
@@ -48,7 +48,7 @@ battery_get_bat_temperature(void)
 	int i;
 
 	for (i = 0; i < 5; i++)
-		pr_notice("[Thermal] E_WF: %s doesn't exist\n", __func__);
+		pr_debug("[Thermal] E_WF: %s doesn't exist\n", __func__);
 
 	tsbattery_exit();
 	return -127000;
