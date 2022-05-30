@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, MICROTRUST Incorporated
+# Copyright (c) 2015-2016 MICROTRUST Incorporated
 # All Rights Reserved.
 #
 # This program is free software; you can redistribute it and/or
@@ -10,12 +10,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 
-ifeq ($(CONFIG_MICROTRUST_TEE_LITE_SUPPORT), y)
-$(info "CONFIG_MICROTRUST_TEE_LITE_SUPPORT=$(CONFIG_MICROTRUST_TEE_LITE_SUPPORT)")
-obj-y += lite/
-endif
+subdir-ccflags-y  += -I$(src)/common/include
 
-ifeq ($(CONFIG_MICROTRUST_TEE_SUPPORT), y)
-$(info "CONFIG_MICROTRUST_TEE_VERSION=$(CONFIG_MICROTRUST_TEE_VERSION)")
-obj-y += $(subst ",,$(CONFIG_MICROTRUST_TEE_VERSION))/
-endif
+#obj-y += tee/
+obj-y += tz_driver/
+obj-y += teei_fp/
+obj-y += shm_pool/

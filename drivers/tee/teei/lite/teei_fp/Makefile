@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2020, MICROTRUST Incorporated
+# Copyright (c) 2015-2017 MICROTRUST Incorporated
 # All Rights Reserved.
 #
 # This program is free software; you can redistribute it and/or
@@ -10,12 +10,8 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 
-ifeq ($(CONFIG_MICROTRUST_TEE_LITE_SUPPORT), y)
-$(info "CONFIG_MICROTRUST_TEE_LITE_SUPPORT=$(CONFIG_MICROTRUST_TEE_LITE_SUPPORT)")
-obj-y += lite/
-endif
+obj-$(CONFIG_MICROTRUST_TZ_DRIVER) += fp_func.o
+ccflags-y += -D DEBUG_DO -fno-pic -Wno-error
 
-ifeq ($(CONFIG_MICROTRUST_TEE_SUPPORT), y)
-$(info "CONFIG_MICROTRUST_TEE_VERSION=$(CONFIG_MICROTRUST_TEE_VERSION)")
-obj-y += $(subst ",,$(CONFIG_MICROTRUST_TEE_VERSION))/
-endif
+MTK_PLATFORM := $(shell echo $(CONFIG_MTK_PLATFORM) | grep -o "[0-9]\+")
+ccflags-y += -D MTK_PLATFORM=$(MTK_PLATFORM)
