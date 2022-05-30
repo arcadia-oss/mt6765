@@ -22,7 +22,7 @@
 #include "teei_loader.h"
 
 #define ROUND_UP(N, S)		((((N) + (S) - 1) / (S)) * (S))
-#define MAX_SHM_LEN		(0x180000)
+#define MAX_SHM_LEN		(0x280000)
 #define TEEI_LOADER_MAJOR	252
 
 #define TEEI_IOC_MAGIC		'T'
