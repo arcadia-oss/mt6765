@@ -538,7 +538,8 @@ firmware_class.path=/vendor/firmware";
 			alloc-ranges = <0 0xc0000000 0 0x10000000>;
 		};
 
-#ifdef CONFIG_MICROTRUST_TEE_SUPPORT
+#if defined(CONFIG_MICROTRUST_TEE_SUPPORT) || \
+	defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT)
 		soter-shared-mem {
 			compatible = "microtrust,shared_mem";
 			no-map;
