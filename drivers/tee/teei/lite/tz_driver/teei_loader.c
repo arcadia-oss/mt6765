@@ -92,7 +92,7 @@ static long load_ta_fn(unsigned long arg)
 	}
 
 	shared_buff = alloc_pages_exact(ROUND_UP(shm_size, PAGE_SIZE),
-					GFP_KERNEL | GFP_DMA);
+					GFP_KERNEL | GFP_DMA32);
 
 	shared_buff_pa = (unsigned long)virt_to_phys(shared_buff);
 
@@ -144,7 +144,7 @@ static long send_model_fn(unsigned long arg)
 	}
 
 	shared_buff = alloc_pages_exact(ROUND_UP(shm_size, PAGE_SIZE),
-					GFP_KERNEL | GFP_DMA);
+					GFP_KERNEL | GFP_DMA32);
 	if (shared_buff == 0) {
 		IMSG_ERROR("%s: Can NOT get enough memory!\n", __func__);
 		return -ENOMEM;

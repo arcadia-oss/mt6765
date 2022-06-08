@@ -160,7 +160,7 @@ int tz_log_probe(struct device *dev, struct trusty_state *t_state)
 	}
 
 	spin_lock_init(&s->lock);
-	s->log_pages = alloc_pages(GFP_KERNEL | __GFP_ZERO | GFP_DMA,
+	s->log_pages = alloc_pages(GFP_KERNEL | __GFP_ZERO | GFP_DMA32,
 				   get_order(TZ_LOG_SIZE));
 	if (!s->log_pages) {
 		result = -ENOMEM;
@@ -174,7 +174,7 @@ int tz_log_probe(struct device *dev, struct trusty_state *t_state)
 					TZ_LOG_SIZE);
 
 
-	s->boot_log_pages = alloc_pages(GFP_KERNEL | __GFP_ZERO | GFP_DMA,
+	s->boot_log_pages = alloc_pages(GFP_KERNEL | __GFP_ZERO | GFP_DMA32,
 				   get_order(TZ_LOG_SIZE));
 	if (!s->boot_log_pages) {
 		result = -ENOMEM;

@@ -34,7 +34,7 @@ static struct teei_shm_pool *teei_create_shm_pool(int shared_mem_size)
 	size_t size;
 	struct teei_shm_pool_mem_info shared_info;
 
-	vaddr = (unsigned long)__get_free_pages(GFP_KERNEL | GFP_DMA,
+	vaddr = (unsigned long)__get_free_pages(GFP_KERNEL | GFP_DMA32,
 			get_order(ROUND_UP(shared_mem_size, PAGE_SIZE)));
 	if (vaddr == 0) {
 
@@ -65,7 +65,7 @@ static struct teei_shm_pool *teei_create_shm_pool(int shared_mem_size)
 	return pool;
 }
 
-#define TEEI_SHM_POOL_SIZE (0x100000)
+#define TEEI_SHM_POOL_SIZE (0x200000)
 
 int teei_shm_init(void)
 {

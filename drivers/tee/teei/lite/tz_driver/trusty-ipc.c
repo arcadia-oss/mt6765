@@ -197,7 +197,7 @@ static struct tipc_msg_buf *_alloc_msg_buf(size_t sz)
 
 #ifdef TEEI_SHM_POOL
 
-	buf_shm = teei_shm_kmalloc(sz, GFP_KERNEL | GFP_DMA);
+	buf_shm = teei_shm_kmalloc(sz, GFP_KERNEL | GFP_DMA32);
 	if (IS_ERR(buf_shm)) {
 		IMSG_ERROR("[%s][%d] Failed to teei_shm_kmalloc\n",
 						__func__, __LINE__);
@@ -217,7 +217,7 @@ err_alloc:
 #else
 	/* allocate buffer that can be shared with secure world */
 	mb->buf_va = _alloc_shareable_mem(sz, &mb->buf_pa,
-						GFP_KERNEL | GFP_DMA);
+						GFP_KERNEL | GFP_DMA32);
 	if (!mb->buf_va)
 		goto err_alloc;
 
