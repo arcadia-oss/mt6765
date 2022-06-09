@@ -21,7 +21,7 @@ uint32_t g_cmd_sn = 0;
 static u8 fpsensor_debug_level = DEBUG_LOG;
 #define fpsensor_debug(level, fmt, args...) do { \
         if (fpsensor_debug_level >= level) {\
-            printk("[fpsensor][SN=%d] " fmt, g_cmd_sn, ##args); \
+            pr_debug("[fpsensor][SN=%d] " fmt, g_cmd_sn, ##args); \
         } \
     } while (0)
 #define FUNC_ENTRY()  fpsensor_debug(DEBUG_LOG, "%s, %d, entry\n", __func__, __LINE__)

@@ -134,7 +134,7 @@ extern u8 fpsensor_debug_level;
 
 #define fpsensor_debug(level, fmt, args...) do { \
         if (fpsensor_debug_level >= level) {\
-            printk( "[fpsensor_k_log] " fmt, ##args); \
+            pr_debug( "[fpsensor_k_log] " fmt, ##args); \
         } \
     } while (0)
 
