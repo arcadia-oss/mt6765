@@ -6,8 +6,6 @@
  * Copyright (C) 2010 Trusted Logic S.A.
  */
 
-
-#define DEBUG
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/fs.h>
@@ -88,7 +86,7 @@ static char *I2CDMAReadBuf; /*= NULL;*/  /* unnecessary initialise */
 static unsigned int I2CDMAReadBuf_pa;    /* = NULL; */
 #endif                                   /* KRNMTKLEGACY_I2C */
 
-static bool enable_debug_log;
+static bool enable_debug_log = false;
 
 /*The enum is used to index a pw_states array, the values matter here*/
 enum st21nfc_power_state {
