@@ -122,7 +122,7 @@ do {\
 	} \
 } while (0)
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 #define RPMB_DATA_BUFF_SIZE (1024 * 24)
 #define RPMB_ONE_FRAME_SIZE (512)
 static unsigned char *rpmb_buffer;
@@ -1985,7 +1985,7 @@ param->data + i * MAX_RPMB_TRANSFER_BLK * RPMB_SZ_DATA + (iCnt * RPMB_SZ_DATA),
 	return ret;
 }
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 int ut_rpmb_req_get_max_wr_size(struct mmc_card *card,
 	unsigned int *max_wr_size)
 {
@@ -2656,7 +2656,7 @@ static int rpmb_thread(void *context)
 
 static int rpmb_open(struct inode *inode, struct file *file)
 {
-#if defined(CONFIG_MICROTRUST_TEE_SUPPORT)
+#if defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT)
 	if (rpmb_buffer == NULL) {
 		MSG(ERR, "%s, rpmb buffer is null!!!\n", __func__);
 		return -1;
@@ -2671,7 +2671,7 @@ long rpmb_ioctl_ufs(struct file *file, unsigned int cmd, unsigned long arg)
 {
 	int err = 0;
 	struct rpmb_ioc_param param;
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	u32 rpmb_size = 0;
 	u32 arg_k;
 	struct rpmb_infor rpmbinfor;
@@ -2687,7 +2687,7 @@ long rpmb_ioctl_ufs(struct file *file, unsigned int cmd, unsigned long arg)
 		return -EFAULT;
 	}
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	if ((cmd == RPMB_IOCTL_SOTER_WRITE_DATA) ||
 		(cmd == RPMB_IOCTL_SOTER_READ_DATA)) {
 		if (rpmb_buffer == NULL) {
@@ -2774,7 +2774,7 @@ long rpmb_ioctl_ufs(struct file *file, unsigned int cmd, unsigned long arg)
 
 		break;
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	case RPMB_IOCTL_SOTER_WRITE_DATA:
 
 		MSG(DBG_INFO, "%s, cmd = RPMB_IOCTL_SOTER_WRITE_DATA\n",
@@ -2883,7 +2883,7 @@ long rpmb_ioctl_ufs(struct file *file, unsigned int cmd, unsigned long arg)
 
 long rpmb_ioctl_emmc(struct file *file, unsigned int cmd, unsigned long arg)
 {
-#if defined(RPMB_IOCTL_UT) || defined(CONFIG_MICROTRUST_TEE_SUPPORT)
+#if defined(RPMB_IOCTL_UT) || defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT)
 	int err = 0;
 #endif
 	struct mmc_card *card;
@@ -2893,7 +2893,7 @@ long rpmb_ioctl_emmc(struct file *file, unsigned int cmd, unsigned long arg)
 	unsigned char *ukey, *udata;
 #endif
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	u32 arg_k;
 	u32 rpmb_size = 0;
 	struct rpmb_infor rpmbinfor;
@@ -2969,7 +2969,7 @@ long rpmb_ioctl_emmc(struct file *file, unsigned int cmd, unsigned long arg)
 	}
 #endif
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	if ((cmd == RPMB_IOCTL_SOTER_WRITE_DATA) ||
 		(cmd == RPMB_IOCTL_SOTER_READ_DATA)) {
 		if (rpmb_buffer == NULL) {
@@ -3047,7 +3047,7 @@ long rpmb_ioctl_emmc(struct file *file, unsigned int cmd, unsigned long arg)
 		break;
 #endif
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	case RPMB_IOCTL_SOTER_WRITE_DATA:
 
 		ret = ut_rpmb_req_write_data(card,
@@ -3161,7 +3161,7 @@ static int rpmb_close(struct inode *inode, struct file *file)
 
 	MSG(INFO, "%s, !!!!!!!!!!!!\n", __func__);
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	if (rpmb_buffer)
 		memset(rpmb_buffer, 0x0, RPMB_DATA_BUFF_SIZE);
 #endif
@@ -3283,7 +3283,7 @@ static int __init rpmb_init(void)
 		MSG(ERR, "%s, init kthread_run failed!\n", __func__);
 #endif
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 	rpmb_buffer = kzalloc(RPMB_DATA_BUFF_SIZE, 0);
 	if (rpmb_buffer == NULL) {
 		MSG(ERR, "%s, rpmb kzalloc memory fail!!!\n", __func__);

@@ -22,7 +22,7 @@ extern struct msdc_host *mtk_msdc_host[];
 #define RPMB_IOCTL_WRITE_DATA   3
 #define RPMB_IOCTL_READ_DATA    4
 
-#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT))
+#if (defined(CONFIG_MICROTRUST_TEE_SUPPORT) || defined(CONFIG_MICROTRUST_TEE_LITE_SUPPORT))
 
 #define RPMB_MULTI_BLOCK_ACCESS 1
 
