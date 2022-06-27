@@ -73,11 +73,6 @@ struct task_struct *teei_switch_task;
 static int teei_cpu_id[] = {0x0000, 0x0001, 0x0002, 0x0003, 0x0100, 0x0101,
 			0x0102, 0x0103, 0x0200, 0x0201, 0x0202, 0x0203};
 
-static int teei_cpu_callback(struct notifier_block *nfb,
-					unsigned long action, void *hcpu);
-static struct notifier_block teei_cpu_notifer = {
-	.notifier_call = teei_cpu_callback,
-};
 #endif
 
 static int get_current_cpuid(void)
@@ -492,31 +487,22 @@ static void handle_switch_core(unsigned long cpu)
 #endif
 }
 
-static int teei_cpu_callback(struct notifier_block *self,
-				unsigned long action, void *hcpu)
+static int teei_cpu_dead_notify(unsigned int cpu)
 {
-	unsigned int cpu = (unsigned long)hcpu;
 	unsigned int sched_cpu = get_current_cpuid();
 
-	switch (action) {
-	case CPU_DOWN_PREPARE:
-	case CPU_DOWN_PREPARE_FROZEN:
-		if (cpu == sched_cpu) {
-			IMSG_DEBUG("cpu down prepare for %d.\n", cpu);
-			handle_switch_core((unsigned long)cpu);
-		} else if (is_prefer_core(cpu))
-			IMSG_DEBUG("cpu down prepare for prefer %d.\n", cpu);
-		else if (!is_prefer_core_binded()
-					&& is_prefer_core_onlined()) {
-			IMSG_DEBUG("cpu down prepare for changing %d %d.\n",
-					sched_cpu, cpu);
-			handle_switch_core((unsigned long)sched_cpu);
-		}
-		break;
-	default:
-		break;
+	if (cpu == sched_cpu) {
+		IMSG_DEBUG("cpu down prepare for %d.\n", cpu);
+		handle_switch_core((unsigned long)cpu);
+	} else if (is_prefer_core(cpu))
+		IMSG_DEBUG("cpu down prepare for prefer %d.\n", cpu);
+	else if (!is_prefer_core_binded()
+				&& is_prefer_core_onlined()) {
+		IMSG_DEBUG("cpu down prepare for changing %d %d.\n",
+				sched_cpu, cpu);
+		handle_switch_core((unsigned long)sched_cpu);
 	}
-	return NOTIFY_OK;
+	return 0;
 }
 #endif
 
@@ -809,7 +795,8 @@ static int trusty_probe(struct platform_device *pdev)
 	/* Core migration not supported */
 #else
 	TEEI_BOOT_FOOTPRINT("TEEI Register The CPU Notifier");
-	register_cpu_notifier(&teei_cpu_notifer);
+	cpuhp_setup_state_nocalls(CPUHP_BP_PREPARE_DYN, "teei_trusty",
+							  teei_cpu_dead_notify, NULL);
 #endif
 
 	if (!node) {
