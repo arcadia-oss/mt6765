@@ -167,8 +167,8 @@ static int get_pmic_vbus(struct mtk_charger *info, int *vchr)
 	}
 	*vchr = prop.intval;
 
-	pr_notice("%s vbus:%d\n", __func__,
-		prop.intval);
+	//pr_notice("%s vbus:%d\n", __func__,
+	//	prop.intval);
 	return ret;
 }
 
@@ -277,10 +277,10 @@ int get_charger_type(struct mtk_charger *info)
 			prop2.intval = POWER_SUPPLY_TYPE_USB_FLOAT;
 	}
 
-	pr_notice("%s online:%d type:%d usb_type:%d\n", __func__,
-		prop.intval,
-		prop2.intval,
-		prop3.intval);
+	//pr_notice("%s online:%d type:%d usb_type:%d\n", __func__,
+	//	prop.intval,
+	//	prop2.intval,
+	//	prop3.intval);
 
 	return prop2.intval;
 }
