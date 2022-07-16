@@ -639,7 +639,7 @@ static int psy_chr_type_get_property(struct power_supply *psy,
 	struct mtk_charger_type *info;
 	int vbus = 0;
 
-	pr_notice("%s: prop:%d\n", __func__, psp);
+	//pr_notice("%s: prop:%d\n", __func__, psp);
 	info = (struct mtk_charger_type *)power_supply_get_drvdata(psy);
 
 	switch (psp) {
@@ -672,7 +672,7 @@ int psy_chr_type_set_property(struct power_supply *psy,
 {
 	struct mtk_charger_type *info;
 
-	pr_notice("%s: prop:%d %d\n", __func__, psp, val->intval);
+	//pr_notice("%s: prop:%d %d\n", __func__, psp, val->intval);
 
 	info = (struct mtk_charger_type *)power_supply_get_drvdata(psy);
 	switch (psp) {
@@ -775,9 +775,9 @@ static int check_boot_mode(struct mtk_charger_type *info, struct device *dev)
 		if (!tag)
 			pr_notice("%s: failed to get atag,boot\n", __func__);
 		else {
-			pr_notice("%s: size:0x%x tag:0x%x bootmode:0x%x boottype:0x%x\n",
-				__func__, tag->size, tag->tag,
-				tag->bootmode, tag->boottype);
+			//pr_notice("%s: size:0x%x tag:0x%x bootmode:0x%x boottype:0x%x\n",
+			//	__func__, tag->size, tag->tag,
+			//	tag->bootmode, tag->boottype);
 			info->bootmode = tag->bootmode;
 			info->boottype = tag->boottype;
 		}
@@ -793,7 +793,7 @@ static int mt6357_charger_type_probe(struct platform_device *pdev)
 	struct device_node *np = dev->of_node;
 	int ret = 0;
 
-	pr_notice("%s: starts\n", __func__);
+	//pr_notice("%s: starts\n", __func__);
 
 	chan_vbus = devm_iio_channel_get(
 		&pdev->dev, "pmic_vbus");
@@ -868,7 +868,7 @@ static int mt6357_charger_type_probe(struct platform_device *pdev)
 	if (of_property_read_u32(np, "bc12_active", &info->bc12_active) < 0)
 		pr_notice("%s: no bc12_active\n", __func__);
 
-	pr_notice("%s: bc12_active:%d\n", __func__, info->bc12_active);
+	//pr_notice("%s: bc12_active:%d\n", __func__, info->bc12_active);
 
 	if (info->bc12_active) {
 		info->ac_psy = power_supply_register(&pdev->dev,
