@@ -66,10 +66,10 @@
 	do { \
 		if (cmdq != 0) \
 			cmdq_core_save_first_dump(string, ##args); \
-		pr_info(string, ##args); \
+		pr_debug(string, ##args); \
 	} while (0)
 #else
-#define SMIWRN(cmdq, string, args...) pr_info(string, ##args)
+#define SMIWRN(cmdq, string, args...) pr_debug(string, ##args)
 #endif
 
 #define SMIERR(string, args...) \
