@@ -51,6 +51,7 @@ static unsigned int emimpu_read_protection(
 	return (unsigned int)smc_res.a0;
 }
 
+#ifdef MTK_EMIMPU_DBG_ENABLE
 static ssize_t emimpu_ctrl_show(struct device_driver *driver, char *buf)
 {
 	struct emimpu_dev_t *emimpu_dev_ptr;
@@ -114,6 +115,7 @@ static ssize_t emimpu_ctrl_show(struct device_driver *driver, char *buf)
 
 	return strlen(buf);
 }
+#endif
 
 static ssize_t emimpu_ctrl_store
 	(struct device_driver *driver, const char *buf, size_t count)
@@ -669,10 +671,12 @@ static int emimpu_probe(struct platform_device *pdev)
 			arm_smccc_smc(MTK_SIP_EMIMPU_CONTROL, MTK_EMIMPU_SLVERR,
 				i, 0, 0, 0, 0, 0, &smc_res);
 
+#ifdef MTK_EMIMPU_DBG_ENABLE
 	ret = driver_create_file(&emimpu_drv.driver,
 		&driver_attr_emimpu_ctrl);
 	if (ret)
 		pr_info("%s: fail to create emimpu_ctrl\n", __func__);
+#endif
 
 	return ret;
 }
@@ -771,6 +775,10 @@ EXPORT_SYMBOL(mtk_emimpu_init_region);
  */
 int mtk_emimpu_free_region(struct emimpu_region_t *rg_info)
 {
+	if (!rg_info || !rg_info->apc) {
+		pr_info("%s: %p is NULL", __func__, __builtin_return_address(0));
+		return -EINVAL;
+	} 
 	kfree(rg_info->apc);
 	return 0;
 }
